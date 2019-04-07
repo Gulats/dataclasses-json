@@ -1,4 +1,4 @@
-# Dataclasses JSON
+# DC JSON
 
 This library provides a simple API for encoding and decoding [dataclasses](https://docs.python.org/3/library/dataclasses.html) to and from JSON.
 
@@ -23,10 +23,10 @@ behavior (for example, if you want to use ISO).
 are encoded as `str` (JSON string).
 
 
-**The [latest release](https://github.com/lidatong/dataclasses-json/releases/latest) is compatible with both Python 3.7 and Python 3.6 (with the dataclasses backport).**
+**The [latest release](https://github.com/lidatong/dc-json/releases/latest) is compatible with both Python 3.7 and Python 3.6 (with the dataclasses backport).**
 
 ## Quickstart
-`pip install dataclasses-json`
+`pip install dc-json`
 
 #### Approach 1: Class decorator
 
