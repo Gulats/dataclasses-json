@@ -3,7 +3,7 @@ from typing import Dict, List
 
 from dataclasses import dataclass
 
-from dataclasses_json import dataclass_json
+from dc_json import dataclass_json
 
 
 class MyEnum(Enum):

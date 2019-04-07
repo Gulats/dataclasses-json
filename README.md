@@ -32,7 +32,7 @@ are encoded as `str` (JSON string).
 
 ```python
 from dataclasses import dataclass
-from dataclasses_json import dataclass_json
+from dc_json import dataclass_json
 
 @dataclass_json
 @dataclass
@@ -55,7 +55,7 @@ decorator (order matters!)
 
 ```python
 from dataclasses import dataclass
-from dataclasses_json import DataClassJsonMixin
+from dc_json import DataClassJsonMixin
 
 @dataclass
 class Person(DataClassJsonMixin):
@@ -77,7 +77,7 @@ invisible in usage.
 
 ```python
 from dataclasses import dataclass
-from dataclasses_json import dataclass_json
+from dc_json import dataclass_json
 
 @dataclass_json
 @dataclass
@@ -268,7 +268,7 @@ get passed through to the marshmallow schema.
 
 ```python
 from dataclasses import dataclass
-from dataclasses_json import dataclass_json
+from dc_json import dataclass_json
 
 @dataclass_json
 @dataclass
@@ -291,7 +291,7 @@ rather than the default `timestamp`.
 
 ```python
 from dataclasses import dataclass, field
-from dataclasses_json import dataclass_json
+from dc_json import dataclass_json
 from datetime import datetime
 from marshmallow import fields
 
@@ -299,7 +299,7 @@ from marshmallow import fields
 @dataclass
 class DataClassWithIsoDatetime:
     created_at: datetime = field(
-        metadata={'dataclasses_json': {
+        metadata={'dc_json': {
             'encoder': datetime.isoformat,
             'decoder': datetime.fromisoformat,
             'mm_field': fields.DateTime(format='iso')
@@ -308,11 +308,11 @@ class DataClassWithIsoDatetime:
 
 #### Extending
 
-Similarly, you might want to extend `dataclasses_json` to encode `date` objects.
+Similarly, you might want to extend `dc_json` to encode `date` objects.
 
 ```python
 from dataclasses import dataclass, field
-from dataclasses_json import dataclass_json
+from dc_json import dataclass_json
 from datetime import date
 from marshmallow import fields
 
@@ -320,7 +320,7 @@ from marshmallow import fields
 @dataclass
 class DataClassWithIsoDatetime:
     created_at: date = field(
-        metadata={'dataclasses_json': {
+        metadata={'dc_json': {
             'encoder': date.isoformat,
             'decoder': date.fromisoformat,
             'mm_field': fields.DateTime(format='iso')
@@ -342,7 +342,7 @@ carefully consider whether the interaction of the encode/decode/mm_field is cons
 
 ```python
 from dataclasses import dataclass
-from dataclasses_json import dataclass_json
+from dc_json import dataclass_json
 from typing import List
 
 @dataclass_json

@@ -9,7 +9,7 @@ from typing import Collection, Mapping, Union
 from collections import namedtuple
 from uuid import UUID
 
-from dataclasses_json.utils import (_get_type_cons, _is_collection, _is_mapping,
+from dc_json.utils import (_get_type_cons, _is_collection, _is_mapping,
                                     _is_optional, _isinstance_safe,
                                     _issubclass_safe)
 
@@ -19,7 +19,9 @@ JSON = Union[dict, list, str, int, float, bool, None]
 class _ExtendedEncoder(json.JSONEncoder):
     def default(self, o) -> JSON:
         result: JSON
-        if _isinstance_safe(o, Collection):
+        if hasattr(o, 'to_json') and callable(o.to_json):
+            result = o.to_json()
+        elif _isinstance_safe(o, Collection):
             if _isinstance_safe(o, Mapping):
                 result = dict(o)
             else:
@@ -40,11 +42,11 @@ def _overrides(dc):
     attrs = ['encoder', 'decoder', 'mm_field']
     FieldOverride = namedtuple('FieldOverride', attrs)
     for field in fields(dc):
-        # if the field has dataclasses_json metadata, we cons a FieldOverride
+        # if the field has dc_json metadata, we cons a FieldOverride
         # so there's a distinction between FieldOverride with all Nones
         # and field that just doesn't appear in overrides
-        if field.metadata is not None and 'dataclasses_json' in field.metadata:
-            metadata = field.metadata['dataclasses_json']
+        if field.metadata is not None and 'dc_json' in field.metadata:
+            metadata = field.metadata['dc_json']
             overrides[field.name] = FieldOverride(*map(metadata.get, attrs))
     return overrides
 
@@ -140,6 +142,8 @@ def _is_supported_generic(type_):
 def _decode_generic(type_, value, infer_missing):
     if value is None:
         res = value
+    elif hasattr(type_, 'from_json') and callable(type_.from_json):
+        res = type_.from_json(value)
     elif _is_collection(type_):
         if _is_mapping(type_):
             k_type, v_type = type_.__args__
@@ -158,7 +162,10 @@ def _decode_generic(type_, value, infer_missing):
             res = type_(xs)
     elif _issubclass_safe(type_, Enum):
         # Convert to an Enum using the type as a constructor. Assumes a direct match is found.
-        res = type_(value)
+        try:
+            res = type_(value)
+        except:
+            res = type_[value]
     else:  # Optional
         type_arg = type_.__args__[0]
         if is_dataclass(type_arg) or is_dataclass(value):

@@ -7,8 +7,8 @@ from uuid import UUID
 
 from marshmallow import fields, Schema, post_load
 
-from dataclasses_json.core import _is_supported_generic, _decode_dataclass
-from dataclasses_json.utils import (_is_collection, _is_optional,
+from dc_json.core import _is_supported_generic, _decode_dataclass
+from dc_json.utils import (_is_collection, _is_optional,
                                     _issubclass_safe, _timestamp_to_dt_aware)
 
 
@@ -76,8 +76,8 @@ def build_type(type_, options, mixin, field, cls):
 def schema(cls, mixin, infer_missing):
     schema = {}
     for field in dc_fields(cls):
-        if 'dataclasses_json' in (field.metadata or {}):
-            schema[field.name] = field.metadata['dataclasses_json'].get('mm_field')
+        if 'dc_json' in (field.metadata or {}):
+            schema[field.name] = field.metadata['dc_json'].get('mm_field')
         else:
             type_ = field.type
             options = {}

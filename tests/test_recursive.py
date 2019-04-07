@@ -3,7 +3,7 @@ from typing import Optional
 
 import pytest
 
-from dataclasses_json import DataClassJsonMixin
+from dc_json import DataClassJsonMixin
 
 
 @dataclass(frozen=True)

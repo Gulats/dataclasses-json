@@ -4,15 +4,15 @@ with open('README.md', 'r', encoding='utf8') as f:
     readme = f.read()
 
 setup(
-    name="dataclasses-json",
+    name="dc-json",
     version="0.2.2",
     packages=find_packages(exclude=("tests*",)),
-    author="lidatong",
-    author_email="charles.dt.li@gmail.com",
+    author="gulats",
+    author_email="bharat.gulati.certi@gmail.com",
     description="Easily serialize dataclasses to and from JSON",
     long_description=readme,
     long_description_content_type='text/markdown',
-    url="https://github.com/lidatong/dataclasses-json",
+    url="https://github.com/Gulats/dc-json",
     license="Unlicense",
     keywords="dataclasses json",
     install_requires=[
