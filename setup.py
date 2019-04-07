@@ -5,7 +5,7 @@ with open('README.md', 'r', encoding='utf8') as f:
 
 setup(
     name="dc-json",
-    version="0.2.2",
+    version="0.2.3",
     packages=find_packages(exclude=("tests*",)),
     author="gulats",
     author_email="bharat.gulati.certi@gmail.com",
